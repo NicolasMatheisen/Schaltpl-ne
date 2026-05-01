@@ -2,13 +2,13 @@ const canvas = document.getElementById('Bauplan');
 const renderer = canvas.getContext('2d');
 
 class Bauteil {
-    constructor(Typ, Name, Zahlenwert, Einheit, xPosition, yPosiition, Hoehe, Breite, Anschluss){
+    constructor(Typ, Name, Zahlenwert, Einheit, xPosition, yPosition, Hoehe, Breite, Anschluss){
         this.Typ = Typ;
         this.Name = Name;
         this.Zahlenwert = Zahlenwert;
         this.Einheit = Einheit;
         this.xPosition = xPosition;
-        this.yPosiition = yPosiition;
+        this.yPosition = yPosition;
         this.Hoehe = Hoehe;
         this.Breite = Breite;
         this.Anschluss = Anschluss;
@@ -20,11 +20,12 @@ class Bauteil {
 }
 
 class Widerstand extends Bauteil {
-    constructor(Name, Zahlenwert, xPosition, yPosiition) {
-        super('Widerstand', Name, Zahlenwert, 'Ω', xPosition, yPosiition, 20, 60, 10)
+    constructor(Name, Zahlenwert, xPosition, yPosition) {
+        super('Widerstand', Name, Zahlenwert, 'Ω', xPosition, yPosition, 20, 60, 10)
     }
 
     draw(renderer) {
+        renderer.save();
         renderer.lineWidth = 2;
 
         const Breite = this.Breite;
@@ -34,26 +35,32 @@ class Widerstand extends Bauteil {
         //das Zeichen an sich
         renderer.strokeRect(
             Anschluss, 
-            Widerstand.lineWidth,
+            renderer.lineWidth,
             Breite,
             Hoehe
         );
 
         //Anschlüsse
+        renderer.moveTo(0,20);
+        renderer.lineTo(10, 20);
+        renderer.stroke();
+        renderer.moveTo(70,20);
+        renderer.lineTo(80, 20);
+        renderer.stroke();
 
         renderer.restore();
     }
 }
 
 class Kondensator extends Bauteil {
-    constructor(Name, Zahlenwert, xPosition, yPosiition) {
-        super('Kondensator', Name, Zahlenwert, 'F', xPosition, yPosiition)
+    constructor(Name, Zahlenwert, xPosition, yPosition) {
+        super('Kondensator', Name, Zahlenwert, 'F', xPosition, yPosition)
     }
 }
 
 class Spule extends Bauteil {
-    constructor(Name, Zahlenwert, xPosition, yPosiition) {
-        super('Spule', Name, Zahlenwert, 'H', xPosition, yPosiition)
+    constructor(Name, Zahlenwert, xPosition, yPosition) {
+        super('Spule', Name, Zahlenwert, 'H', xPosition, yPosition)
     }
 }
 
