@@ -1,5 +1,5 @@
 const canvas = document.getElementById('Bauplan');
-const context = canvas.getContext('2d');
+const Widerstand = canvas.getContext('2d');
 
 class Bauteil {
     constructor(Typ, Name, Zahlenwert, Einheit, xPosition, yPosiition, Höhe, Breite, Anschluss){
@@ -9,7 +9,7 @@ class Bauteil {
         this.Einheit = Einheit;
         this.xPosition = xPosition;
         this.yPosiition = yPosiition;
-        this.Höhe = Höhe;
+        this.Hoehe = Hoehe;
         this.Breite = Breite;
         this.Anschluss = Anschluss;
     }
@@ -25,11 +25,10 @@ class Widerstand extends Bauteil {
     }
 
     draw(Widerstand) {
-        Widerstand.save();
         Widerstand.lineWidth = 2;
 
         const Breite = this.Breite;
-        const Höhe = this.Höhe;
+        const Hoehe = this.Hoehe;
         const Anschluss = this.Anschluss
 
         //das Zeichen an sich
@@ -37,7 +36,7 @@ class Widerstand extends Bauteil {
             Anschluss, 
             Widerstand.lineWidth,
             Breite,
-            Höhe
+            Hoehe
         );
 
         //Anschlüsse
