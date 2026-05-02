@@ -30,7 +30,8 @@ class Widerstand extends Bauteil {
 
         const Breite = this.Breite;
         const Hoehe = this.Hoehe;
-        const Anschluss = this.Anschluss
+        const Anschluss = this.Anschluss;
+        const center_Y_AnschlussPosition = (Hoehe / 2) + renderer.lineWidth;
 
         //das Zeichen an sich
         renderer.strokeRect(
@@ -41,11 +42,11 @@ class Widerstand extends Bauteil {
         );
 
         //Anschlüsse
-        renderer.moveTo(0,20);
-        renderer.lineTo(10, 20);
+        renderer.moveTo(0,center_Y_AnschlussPosition);
+        renderer.lineTo(Anschluss, center_Y_AnschlussPosition);
         renderer.stroke();
-        renderer.moveTo(70,20);
-        renderer.lineTo(80, 20);
+        renderer.moveTo(Anschluss + Breite, center_Y_AnschlussPosition);
+        renderer.lineTo((2 * Anschluss) + Breite, center_Y_AnschlussPosition);
         renderer.stroke();
 
         renderer.restore();
