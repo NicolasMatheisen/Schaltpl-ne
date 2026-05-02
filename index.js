@@ -26,22 +26,26 @@ class Widerstand extends Bauteil {
 
     draw(renderer) {
         renderer.save();
-        renderer.lineWidth = 2;
+        renderer.lineWidth = 4;
+        renderer.beginPath();
 
         const Breite = this.Breite;
         const Hoehe = this.Hoehe;
         const Anschluss = this.Anschluss;
         const center_Y_AnschlussPosition = (Hoehe / 2) + renderer.lineWidth;
 
-        //das Zeichen an sich
+        //zeichnet den Widerstand
         renderer.strokeRect(
             Anschluss, 
             renderer.lineWidth,
             Breite,
             Hoehe
         );
+        renderer.stroke();
 
-        //Anschlüsse
+        //zeichnet Anschlüsse
+        renderer.lineWidth = 1;
+        renderer.beginPath();    
         renderer.moveTo(0,center_Y_AnschlussPosition);
         renderer.lineTo(Anschluss, center_Y_AnschlussPosition);
         renderer.stroke();
@@ -55,7 +59,37 @@ class Widerstand extends Bauteil {
 
 class Kondensator extends Bauteil {
     constructor(Name, Zahlenwert, xPosition, yPosition) {
-        super('Kondensator', Name, Zahlenwert, 'F', xPosition, yPosition)
+        super('Kondensator', Name, Zahlenwert, 'F', xPosition, yPosition, 10, 50, 10)
+    }
+
+    draw(renderer){
+        renderer.save();
+        renderer.lineWidth = 6;
+        renderer.beginPath();
+
+        const Breite = this.Breite;
+        const Hoehe = this.Hoehe;
+        const Anschluss = this.Anschluss;
+        const center_Y_AnschlussPosition = (Hoehe / 2) + renderer.lineWidth;
+
+        //zeichnet den Kondensator
+        renderer.moveTo(Anschluss, renderer.lineWidth);
+        renderer.lineTo(Anschluss, Hoehe + renderer.lineWidth);
+        renderer.moveTo(Anschluss + Breite, renderer.lineWidth);
+        renderer.lineTo(Anschluss + Breite, Hoehe + renderer.lineWidth);
+        renderer.stroke();
+
+        //zeichnet Anschlüsse
+        renderer.lineWidth = 1;
+        renderer.beginPath();        
+        renderer.moveTo(0,center_Y_AnschlussPosition);
+        renderer.lineTo(Anschluss, center_Y_AnschlussPosition);
+        renderer.stroke();
+        renderer.moveTo(Anschluss + Breite, center_Y_AnschlussPosition);
+        renderer.lineTo((2 * Anschluss) + Breite, center_Y_AnschlussPosition);
+        renderer.stroke();
+
+        renderer.restore();
     }
 }
 
@@ -74,3 +108,4 @@ console.log(C1.info());
 console.log(L1.info());
 
 R1.draw(renderer);
+C1.draw(renderer);
