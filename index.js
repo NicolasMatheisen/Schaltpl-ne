@@ -2,15 +2,15 @@ const canvas = document.getElementById('Bauplan');
 const renderer = canvas.getContext('2d');
 
 class Bauteil {
-    constructor(Typ, Name, Zahlenwert, Einheit, xPosition, yPosition, Hoehe, Breite, Anschluss){
+    constructor(Typ, Name, Zahlenwert, Einheit, xPosition, yPosition, Breite,Hoehe, Anschluss){
         this.Typ = Typ;
         this.Name = Name;
         this.Zahlenwert = Zahlenwert;
         this.Einheit = Einheit;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
-        this.Hoehe = Hoehe;
         this.Breite = Breite;
+        this.Hoehe = Hoehe;
         this.Anschluss = Anschluss;
     }
 
@@ -21,7 +21,7 @@ class Bauteil {
 
 class Widerstand extends Bauteil {
     constructor(Name, Zahlenwert, xPosition, yPosition) {
-        super('Widerstand', Name, Zahlenwert, 'Ω', xPosition, yPosition, 20, 60, 10)
+        super('Widerstand', Name, Zahlenwert, 'Ω', xPosition, yPosition, 60, 20, 10)
     }
 
     draw(renderer) {
