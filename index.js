@@ -95,7 +95,43 @@ class Kondensator extends Bauteil {
 
 class Spule extends Bauteil {
     constructor(Name, Zahlenwert, xPosition, yPosition) {
-        super('Spule', Name, Zahlenwert, 'H', xPosition, yPosition)
+        super('Spule', Name, Zahlenwert, 'H', xPosition, yPosition, 10, 10, 10)
+    }
+
+    draw(renderer){
+        renderer.save();
+        renderer.lineWidth = 2;
+        renderer.beginPath();
+
+        const Breite = this.Breite;
+        const Hoehe = this.Hoehe;
+        const Anschluss = this.Anschluss;
+        const center_Y_AnschlussPosition = (Hoehe / 2) + renderer.lineWidth;
+
+        //zeichnet der Spule
+        for(let i = 0; i < 4; i++) {
+            const mittelpunktXPosition = Anschluss + (i * Breite) + (Breite / 2);
+            renderer.arc(
+                mittelpunktXPosition,
+                center_Y_AnschlussPosition,
+                Breite / 2,
+                Math.PI,
+                0
+            );
+        };
+        renderer.stroke();
+
+        //zeichnet Anschlüsse
+        renderer.lineWidth = 1;
+        renderer.beginPath();        
+        renderer.moveTo(0,center_Y_AnschlussPosition);
+        renderer.lineTo(Anschluss, center_Y_AnschlussPosition);
+        renderer.stroke();
+        renderer.moveTo(Anschluss + (4 * Breite), center_Y_AnschlussPosition);
+        renderer.lineTo((2 * Anschluss) + (4 * Breite), center_Y_AnschlussPosition);
+        renderer.stroke();
+
+        renderer.restore();
     }
 }
 
@@ -107,5 +143,6 @@ console.log(R1.info());
 console.log(C1.info());
 console.log(L1.info());
 
-R1.draw(renderer);
-C1.draw(renderer);
+//R1.draw(renderer);
+//C1.draw(renderer);
+L1.draw(renderer);
