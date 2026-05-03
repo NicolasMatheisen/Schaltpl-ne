@@ -167,5 +167,5 @@ console.log(L1.info());
 //C1.draw(renderer);
 //L1.draw(renderer);
  
-const Reihenschaltung = new Reihenschaltung([R1, C1, L1]);
-Reihenschaltung.draw(renderer);
+const renderReihenschaltung = new Reihenschaltung([R1, C1, L1]);
+renderReihenschaltung.draw(renderer);
