@@ -154,7 +154,7 @@ class Reihenschaltung{
 
     draw(renderer){
         let naechsteBauteilXPosition = 0;
-        const globaleYPositionDerAnschlüsse = 50;
+        const globaleYPositionDerAnschlüsse = 0;
 
         const gemeinsameAnschlussHoehe = Math.max(
             ...this.Bauteil.map(bauteil => bauteil.lokaleAnschlussHoehe())
