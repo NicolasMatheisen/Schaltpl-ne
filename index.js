@@ -26,6 +26,7 @@ class Widerstand extends Bauteil {
 
     draw(renderer) {
         renderer.save();
+
         renderer.lineWidth = 4;
         renderer.beginPath();
 
@@ -59,7 +60,7 @@ class Widerstand extends Bauteil {
 
 class Kondensator extends Bauteil {
     constructor(Name, Zahlenwert, xPosition, yPosition) {
-        super('Kondensator', Name, Zahlenwert, 'F', xPosition, yPosition, 10, 50, 10)
+        super('Kondensator', Name, Zahlenwert, 'F', xPosition, yPosition, 10, 40, 10)
     }
 
     draw(renderer){
@@ -95,7 +96,7 @@ class Kondensator extends Bauteil {
 
 class Spule extends Bauteil {
     constructor(Name, Zahlenwert, xPosition, yPosition) {
-        super('Spule', Name, Zahlenwert, 'H', xPosition, yPosition, 10, 10, 10)
+        super('Spule', Name, Zahlenwert, 'H', xPosition, yPosition, 16, 20, 10)
     }
 
     draw(renderer){
@@ -142,10 +143,11 @@ class Reihenschaltung{
 
     draw(renderer){
         let naechsteBauteilXPosition = 0;
+        const globaleYPositionAnschlüsse = 50;
 
         for (const Bauteil of this.Bauteil) {
             renderer.save();
-            renderer.translate(naechsteBauteilXPosition, 0);
+            renderer.translate(naechsteBauteilXPosition, globaleYPositionAnschlüsse);
             Bauteil.draw(renderer);
             renderer.restore();
 
@@ -168,4 +170,4 @@ console.log(L1.info());
 //L1.draw(renderer);
  
 const renderReihenschaltung = new Reihenschaltung([R1, C1, L1]);
-renderReihenschaltung.draw(renderer);
+renderReihenschaltung.draw(renderer); 
