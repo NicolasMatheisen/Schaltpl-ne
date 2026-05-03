@@ -148,8 +148,8 @@ class Spule extends Bauteil {
 }
 
 class Reihenschaltung{
-    constructor(Bauteil){
-        this.Bauteil = Bauteil;       
+    constructor(Bauteile){
+        this.Bauteile = Bauteile;       
     }
 
     draw(renderer){
@@ -157,10 +157,10 @@ class Reihenschaltung{
         const globaleYPositionDerAnschlüsse = 0;
 
         const gemeinsameAnschlussHoehe = Math.max(
-            ...this.Bauteil.map(bauteil => bauteil.lokaleAnschlussHoehe())
+            ...this.Bauteile.map(bauteil => bauteil.lokaleAnschlussHoehe())
         );
 
-        for (const bauteil of this.Bauteil) {
+        for (const bauteil of this.Bauteile) {
             const angleichungGlobaleHoehe = gemeinsameAnschlussHoehe - bauteil.lokaleAnschlussHoehe();
 
             renderer.save();
