@@ -23,7 +23,7 @@ class Bauteil {
     }
 
     lokaleBauteilBreite() {
-        return (2 * this.Anschlusslaenge)
+        return (2 * this.Anschlusslaenge) + this.Breite;
     }
 }
 
