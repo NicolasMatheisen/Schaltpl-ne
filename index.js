@@ -19,7 +19,7 @@ class Bauteil {
     }
 
     lokaleAnschlussHoehe() {
-        return this.Hoehe / 2;
+        return (this.Hoehe / 2) + this.lineWidth;
     }
 
     lokaleBauteilBreite() {
@@ -30,6 +30,7 @@ class Bauteil {
 class Widerstand extends Bauteil {
     constructor(Name, Zahlenwert, gloableXPosition, globaleYPosition) {
         super('Widerstand', Name, Zahlenwert, 'Ω', gloableXPosition, globaleYPosition, 60, 20, 10)
+        this.lineWidth = 4;
     }
 
     draw(renderer) {
@@ -68,7 +69,8 @@ class Widerstand extends Bauteil {
 
 class Kondensator extends Bauteil {
     constructor(Name, Zahlenwert, gloableXPosition, globaleYPosition) {
-        super('Kondensator', Name, Zahlenwert, 'F', gloableXPosition, globaleYPosition, 10, 40, 10)
+        super('Kondensator', Name, Zahlenwert, 'F', gloableXPosition, globaleYPosition, 10, 40, 10);
+        this.lineWidth = 6;
     }
 
     draw(renderer){
@@ -104,7 +106,8 @@ class Kondensator extends Bauteil {
 
 class Spule extends Bauteil {
     constructor(Name, Zahlenwert, gloableXPosition, globaleYPosition) {
-        super('Spule', Name, Zahlenwert, 'H', gloableXPosition, globaleYPosition, 16, 20, 10)
+        super('Spule', Name, Zahlenwert, 'H', gloableXPosition, globaleYPosition, 16, 20, 10);
+        this.lineWidth = 2;
     }
 
     draw(renderer){
@@ -151,15 +154,24 @@ class Reihenschaltung{
 
     draw(renderer){
         let naechsteBauteilXPosition = 0;
-        const globaleYPositionAnschlüsse = 50;
+        const globaleYPositionDerAnschlüsse = 50;
 
-        for (const Bauteil of this.Bauteil) {
+        const gemeinsameAnschlussHoehe = Math.max(
+            ...this.Bauteil.map(bauteil => bauteil.lokaleAnschlussHoehe())
+        );
+
+        for (const bauteil of this.Bauteil) {
+            const angleichungGlobaleHoehe = gemeinsameAnschlussHoehe - bauteil.lokaleAnschlussHoehe();
+
             renderer.save();
-            renderer.translate(naechsteBauteilXPosition, globaleYPositionAnschlüsse);
-            Bauteil.draw(renderer);
+            renderer.translate(
+                naechsteBauteilXPosition,
+                globaleYPositionDerAnschlüsse + angleichungGlobaleHoehe
+            );
+            bauteil.draw(renderer);
             renderer.restore();
 
-            naechsteBauteilXPosition = naechsteBauteilXPosition + ((2 * Bauteil.Anschlusslaenge) + Bauteil.Breite);
+            naechsteBauteilXPosition = naechsteBauteilXPosition + bauteil.lokaleBauteilBreite();
         }
     }
 }
