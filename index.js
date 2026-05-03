@@ -135,6 +135,25 @@ class Spule extends Bauteil {
     }
 }
 
+class Reihenschaltung{
+    constructor(Bauteil){
+        this.Bauteil = Bauteil;       
+    }
+
+    draw(renderer){
+        let naechsteBauteilXPosition = 0;
+
+        for (const Bauteil of this.Bauteil) {
+            renderer.save();
+            renderer.translate(naechsteBauteilXPosition, 0);
+            Bauteil.draw(renderer);
+            renderer.restore();
+
+            naechsteBauteilXPosition = naechsteBauteilXPosition + ((2 * Bauteil.Anschluss) + Bauteil.Breite);
+        }
+    }
+}
+
 const R1 = new Widerstand('R1', 1250, 10, 10);
 const C1 = new Kondensator('C1', 1250, 10, 10);
 const L1 = new Spule('L1', 1250, 10, 10);
@@ -143,6 +162,10 @@ console.log(R1.info());
 console.log(C1.info());
 console.log(L1.info());
 
+
 //R1.draw(renderer);
 //C1.draw(renderer);
-L1.draw(renderer);
+//L1.draw(renderer);
+ 
+const Reihenschaltung = new Reihenschaltung([R1, C1, L1]);
+Reihenschaltung.draw(renderer);
